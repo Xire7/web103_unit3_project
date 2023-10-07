@@ -1,62 +1,48 @@
-import React, { useState, useEffect } from 'react'
-import '../css/Event.css'
+import React, { useState, useEffect } from "react";
+import "../css/Event.css";
 
 const Event = (props) => {
+  const [remaining, setRemaining] = useState([]);
 
-    const [event, setEvent] = useState([])
-    const [time, setTime] = useState([])
-    const [remaining, setRemaining] = useState([])
+  useEffect(() => {
+    const configureRemaining = () => {
+      const today = new Date();
+      const eventDate = new Date(props.date);
+      const diffInMs = eventDate - today;
+      const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+      setRemaining(diffInDays);
+    };
+    configureRemaining();
+  }, []);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const eventData = await EventsAPI.getEventsById(props.id)
-                setEvent(eventData)
-            }
-            catch (error) {
-                throw error
-            }
-        }) ()
-    }, [])
+    const determine = (id) => {
+      if (id === 1) {
+        return "Tyler1Con";
+      } else if (id === 2) {
+        return "TarzanedCon"
+      } else if (id === 3) {
+        return "PokimaneCon"
+      } else if (id === 4) {
+        return "xQcCon"
+      }
+    }
+  return (
+    <article className="event-information">
+      <img src={props.image} />
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const result = await dates.formatTime(event.time)
-                setTime(result)
-            }
-            catch (error) {
-                throw error
-            }
-        }) ()
-    }, [event])
+      <div className="event-information-overlay">
+        <div className="text">
+          <h3>{props.name}</h3>
+          <p>
+            <i className="fa-regular fa-calendar fa-bounce"></i> {props.date}{" "}
+            <br /> {props.name}
+          </p>
+          <p>{determine(props.id)}</p>
+          <p id={`remaining-${props.id}`}>{props.location}</p>
+        </div>
+      </div>
+    </article>
+  );
+};
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const timeRemaining = await dates.formatRemainingTime(event.remaining)
-                setRemaining(timeRemaining)
-                dates.formatNegativeTimeRemaining(remaining, event.id)
-            }
-            catch (error) {
-                throw error
-            }
-        }) ()
-    }, [event])
-
-    return (
-        <article className='event-information'>
-            <img src={event.image} />
-
-            <div className='event-information-overlay'>
-                <div className='text'>
-                    <h3>{event.title}</h3>
-                    <p><i className="fa-regular fa-calendar fa-bounce"></i> {event.date} <br /> {time}</p>
-                    <p id={`remaining-${event.id}`}>{remaining}</p>
-                </div>
-            </div>
-        </article>
-    )
-}
-
-export default Event
+export default Event;
