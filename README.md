@@ -36,7 +36,7 @@ Here's a walkthrough of implemented required features:
 <img src='/walkthru-gif/VCS.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 https://submissions.us-east-1.linodeobjects.com/web103/Vygu-6Ea.gif
 <img src='/walkthru-gif/twitchevents.png' />
-<img src='/walkthru-gif/locations.png' />
+<img src='/walkthru-gif/SMH.png' />
 
 
 <!-- Replace this with whatever GIF tool you used! -->
